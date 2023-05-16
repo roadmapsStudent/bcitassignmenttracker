@@ -4,20 +4,31 @@ import { uppercase } from "../../helpers/stringHelpers";
 import {useState} from 'react';
 
 
-
 export function Header({listassign, setAssigns}) {
 
-  const [newAssign, setNewAssign] = useState([]);
+  const [textLength, setTextLength] = useState([]);
 
   const handleClick = (event:any) => {
     event.preventDefault();
-    setNewAssign(event.target.value);
+    setTextLength(event.target.value);
   };
 
   function addAssign() {
+    let newAssignment = document.getElementById('NewAssignment');
+    let message = document.getElementById('message');
+    message.innerText="";
+    for(let i=0;i<listassign.length; i++) {
+      // Check to see if Assignment already exists
+      if(listassign[i].assignment == newAssignment.value) {
+        message.innerText = "Assignment\nAlready exists"
+        return;
+      }
+    }
 
-    let newA = {assignment: document.getElementById('NewAssignment').value, status: 0};
-    setAssigns(listassign => [...listassign, newA])
+    let newArray= {assignment: newAssignment.value , status: 0};
+    setAssigns(listassign => [...listassign, newArray])
+    newAssignment.value = "";
+    setTextLength([]);  // reset control create button
   }
 
   return (
@@ -28,10 +39,11 @@ export function Header({listassign, setAssigns}) {
         <input onChange={handleClick} placeholder="Add a new assignment" type="text" id="NewAssignment"/>
         <button
           type="button" 
-          disabled={newAssign.length === 0}
+          disabled={textLength.length === 0}
           onClick={addAssign}
         >
           Create <AiOutlinePlusCircle size={20} />
+          <div id="message"></div>
         </button>
       </form>
     </header>
