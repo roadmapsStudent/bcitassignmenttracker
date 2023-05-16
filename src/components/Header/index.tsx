@@ -16,7 +16,7 @@ export function Header({listassign, setAssigns}) {
   function addAssign() {
     let newAssignment = document.getElementById('NewAssignment');
     let message = document.getElementById('message');
-    message.innerText="";
+    message.innerText = "";
     for(let i=0;i<listassign.length; i++) {
       // Check to see if Assignment already exists
       if(listassign[i].assignment == newAssignment.value) {
@@ -27,7 +27,7 @@ export function Header({listassign, setAssigns}) {
 
     let newArray= {assignment: newAssignment.value , status: 0};
     setAssigns(listassign => [...listassign, newArray])
-    newAssignment.value = "";
+    newAssignment.value = ""; // Empty input text
     setTextLength([]);  // reset control create button
   }
 

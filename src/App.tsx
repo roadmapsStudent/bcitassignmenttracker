@@ -1,25 +1,22 @@
 import { Header } from "./components/Header";
 import { Assignments } from "./components/Assignments";
 import React, {useState} from "react";
-//import { listassign } from "./data";
-interface assign {
-  assignment:string;
-  status:number;
-};
+import { startAssign } from "./data";
+
+
 function App() {
 
   const [listassign, setAssigns] = useState([]);
+  const [start, setStart]= useState(1);
 
 
-  let listassigns: assign[] =  [
-    {assignment:"Assignment 1", status: 0}
-    , {assignment:"Assignment 2", status:0}
-  ];
-  /*
-  setAssigns(assigns.concat(listassign));
-  console.log("ini");
-  console.log(listassign);
-  */
+  if(start == 1) { // if first time running page load assignments
+    for(let i=0; i<startAssign.length; i++) {
+      setAssigns(listassign => [...listassign, startAssign[i]]);
+    }
+    setStart(0);  // used to load only once at the beginning
+  }
+  
   return (
     <>
       <Header listassign={listassign} setAssigns={setAssigns}/>
